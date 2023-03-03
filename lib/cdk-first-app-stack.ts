@@ -16,7 +16,7 @@ export class CdkFirstAppStack extends cdk.Stack {
     });
 
     //Lambda
-    const saveHellloFuntion = new lambda.Function(this,"SaveHelloFuntion",{
+    const saveHelloFuntion = new lambda.Function(this,"SaveHelloFuntion",{
       runtime: lambda.Runtime.NODEJS_14_X,
       handler: 'handler.saveHello',
       code: lambda.Code.fromAsset(path.resolve(__dirname,'lambda')),
@@ -25,14 +25,14 @@ export class CdkFirstAppStack extends cdk.Stack {
       },
     });
     //permiso para lambda
-    greetingsTable.grantWriteData(saveHellloFuntion);
+    greetingsTable.grantWriteData(saveHelloFuntion);
 
     //APIgatway
     const helloAPI =new apigw.RestApi(this,"helloApi");
 
     helloAPI.root
-      .resourceForPath("helo")
-      .addMethod("POST", new apigw.LambdaIntegration(saveHellloFuntion))
+      .resourceForPath("hello")
+      .addMethod("POST", new apigw.LambdaIntegration(saveHelloFuntion))
 
 
   }
